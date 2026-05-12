@@ -135,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="image-wrapper"><img src="images/hero_2_upscaled-20-1-.webp" loading="lazy"
+                <div class="image-wrapper"><img src="images/hero_2_upscaled-20-1-.webp" loading="eager" fetchpriority="high"
                         sizes="(max-width: 1848px) 100vw, 1848px"
                         srcset="images/hero_2_upscaled-20-1-p-500.webp 500w, images/hero_2_upscaled-20-1-p-800.webp 800w, images/hero_2_upscaled-20-1-p-1080.webp 1080w, images/hero_2_upscaled-20-1-p-1600.webp 1600w, images/hero_2_upscaled-20-1-.webp 1848w"
                         alt="Hero Konra Illustration" class="hero-image" /></div>
@@ -494,7 +494,8 @@
                                                     </a>
                                                 </div>
                                                 <p class="cta-desc-2">Take the 2-Minute Quiz</p>
-                                                <p class="cta-desc-2" style="margin-top: -10px;">No commitment. Just a strategy built around your
+                                                <p class="cta-desc-2" style="margin-top: -10px;">No commitment. Just a
+                                                    strategy built around your
                                                     brand.</p>
                                             </div>
                                         </div>
@@ -724,8 +725,25 @@
                     data-url="https://calendly.com/olena-kondratiewa/tiktok-organic-promotion"
                     style="min-width:100%; height:400px;">
                 </div>
-                <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"
-                    async></script>
+                <script>
+                    // Intersection Observer to load Calendly only when visible
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                // Create the script element
+                                const script = document.createElement('script');
+                                script.src = "https://assets.calendly.com/assets/external/widget.js";
+                                script.async = true;
+                                document.body.appendChild(script);
+
+                                // Stop watching once loaded
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { rootMargin: "200px" }); // Starts loading 200px before user reaches it
+
+                    observer.observe(document.getElementById('calendly-trigger'));
+                </script>
                 <div class="quiz-button-wrapper"><a data-w-id="0346c0e0-22fa-9191-a015-361982b35722" href="#"
                         class="button-cta-quiz w-inline-block submit-button">
                         <p class="link-text">Submit</p>
