@@ -71,6 +71,10 @@ sup {
   top: -.5em;
 }
 
+#rangeInput{
+  width: 100%;
+}
+
 sub {
   bottom: -.25em;
 }
