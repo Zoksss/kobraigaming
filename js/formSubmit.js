@@ -70,6 +70,32 @@ submitButton.addEventListener('click', e => {
     closeModal();
 });
 
+const rangeInput = document.querySelector('#rangeInput');
+const thumbValue = document.querySelector('#thumbValue');
+
+if (rangeInput && thumbValue) {
+    const updateBudgetLabel = value => {
+        thumbValue.innerHTML = `Your budget: <span class="thumb-value-style">${value}$</span>`;
+    };
+
+    const snapValue = value => {
+        const step = 250;
+        const min = Number(rangeInput.min);
+        const raw = Number(value);
+        const snapped = Math.round((raw - min) / step) * step + min;
+        return String(Math.min(rangeInput.max, Math.max(rangeInput.min, snapped)));
+    };
+
+    rangeInput.value = snapValue(rangeInput.value);
+    updateBudgetLabel(rangeInput.value);
+
+    rangeInput.addEventListener('input', e => {
+        const snapped = snapValue(e.target.value);
+        rangeInput.value = snapped;
+        updateBudgetLabel(snapped);
+    });
+}
+
 closeEls.forEach(el => {
     el.addEventListener('click', e => {
         e.preventDefault();
