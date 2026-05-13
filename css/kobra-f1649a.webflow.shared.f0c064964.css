@@ -4545,3 +4545,7 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #c1e4ac;
 }
+
+.form-step5{
+      grid-row-gap: 10px !important;
+}
