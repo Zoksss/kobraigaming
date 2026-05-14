@@ -27,6 +27,7 @@
         html.w-mod-js:not(.w-mod-ix3) :is(.hero-headline, [data-wf-target*='["69fe35f30b10dc7360ed18cd","d7504dd4-8417-09d9-4383-eed57e799bc6"]'], .hero-button-wrapper, [data-wf-target*='["69fe35f30b10dc7360ed18cd","730c67fd-8a2c-806b-54a3-a1d0b081e8ea"]'], .navbar, .hero-number-wrapper) {
             visibility: hidden !important;
         }
+
         .submission-message {
             position: fixed;
             top: 90px;
@@ -46,12 +47,19 @@
             pointer-events: none;
             transition: opacity 0.25s ease, transform 0.25s ease;
         }
+
         .submission-message.visible {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
-        .submission-message.success { background: #1ebd7f; }
-        .submission-message.error { background: #f04b4b; }
+
+        .submission-message.success {
+            background: #1ebd7f;
+        }
+
+        .submission-message.error {
+            background: #f04b4b;
+        }
     </style>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" />
@@ -90,7 +98,7 @@
                             </a></div>
                     </nav>
                     <div class="menu-button w-nav-button">
-                        <div data-w-id="9190dd3e-d70b-9742-e81a-bd86643f642c" class="nav_hamburger-wrapper">
+                        <div class="nav_hamburger-wrapper">
                             <div class="nav_hamburger-line2"></div>
                             <div class="nav_hamburger-line"></div>
                         </div>
@@ -101,7 +109,8 @@
                             <p class="link-text">Get Your Free Growth Strategy</p>
                             <div class="arrow-wrapper"><img loading="lazy" src="images/arrow.svg" alt=""
                                     class="image-2" /><img loading="lazy" src="images/arrow.svg" alt=""
-                                    class="image-2" /></div>
+                                    class="image-2" />
+                            </div>
                         </a></div>
                 </div>
             </div>
@@ -788,8 +797,8 @@
                         console.warn("Element #calendly-trigger nije pronađen u DOM-u.");
                     }
                 </script>
-                <div class="quiz-button-wrapper"><a data-w-id="0346c0e0-22fa-9191-a015-361982b35722" id="submit_button" type="submit"
-                        class="button-cta-quiz w-inline-block submit-button">
+                <div class="quiz-button-wrapper"><a data-w-id="0346c0e0-22fa-9191-a015-361982b35722" id="submit_button"
+                        type="submit" class="button-cta-quiz w-inline-block submit-button">
                         <p class="link-text">Submit</p>
                         <div class="arrow-wrapper"><img src="images/arrow.svg" loading="lazy" alt=""
                                 class="image-2" /><img src="images/arrow.svg" loading="lazy" alt="" class="image-2" />

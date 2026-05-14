@@ -1305,6 +1305,20 @@ textarea.w-input, textarea.w-select {
   position: absolute;
 }
 
+.menu-button .nav_hamburger-line,
+.menu-button .nav_hamburger-line2 {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+
+.menu-button.w--open .nav_hamburger-line {
+  transform: translateY(-7px) rotate(45deg);
+}
+
+.menu-button.w--open .nav_hamburger-line2 {
+  transform: translateY(7px) rotate(-45deg);
+}
+
 .w-slider-arrow-left:focus, .w-slider-arrow-right:focus {
   outline: 0;
 }
