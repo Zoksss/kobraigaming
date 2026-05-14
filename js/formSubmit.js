@@ -91,23 +91,18 @@ nextButtons.forEach(button => {
         formSteps[currentStep].classList.remove('active');
         formSteps[currentStep + 1].classList.add('active');
         currentStep++;
-        console.log(currentStep);
     });
 });
 
 
 backButtons.forEach(button => {
     button.addEventListener('click', e => {
-        console.log("back presesd");
         e.preventDefault();
         formSteps[currentStep].classList.remove('active');
         formSteps[currentStep - 1].classList.add('active');
         currentStep--;
-        console.log("went troug");
     });
 });
-
-
 
 
 buttonOpenModal.forEach(button => {
@@ -118,29 +113,20 @@ buttonOpenModal.forEach(button => {
 });
 
 
-
-
 submitButton.addEventListener('click', e => {
-    // 1. Potpuno zaustavljamo slanje stranice i ućutkujemo Webflow skripte
     e.preventDefault();
     e.stopPropagation();
-    console.log('Submit button clicked, preparing to collect form data...');
 
     const form = document.querySelector('#email-form');
     if (!form) {
-        console.warn('Email form not found.');
         closeModal();
         return;
     }
 
-    // Close the modal immediately when the user submits
     closeModal();
 
-    // 2. Tvoja funkcija uspešno skuplja snapshot svih koraka
     const formValues = getFormSnapshot(form);
-    console.log('Collected quiz values:', formValues);
 
-    // 1. Prvo skupljamo ciljeve iz checkboxova u jedan string
     const goalsCombined = [
         ...(formValues["checkbox-1"] || []),
         ...(formValues["checkbox-2"] || []),
@@ -148,7 +134,6 @@ submitButton.addEventListener('click', e => {
         ...(formValues["checkbox-4"] || [])
     ].join(', ');
 
-    // 2. Pravimo sirovi objekat, ali pazimo na 'email' ključ (mora biti validan ako postoji)
     const rawData = {
         name: formValues["Name"]?.trim() || undefined,
         email: formValues["Email"]?.includes('@') ? formValues["Email"].trim() : undefined, // Šalje se samo ako je validan email
@@ -160,15 +145,12 @@ submitButton.addEventListener('click', e => {
         niche: formValues["radio"] && formValues["radio"] !== "Radio" ? formValues["radio"] : undefined
     };
 
-    // 3. BRISANJE UKLETIH 'UNDEFINED' POLJA (Da Formspree dobije samo čiste podatke)
     const cleanDataForFormspree = Object.fromEntries(
         Object.entries(rawData).filter(([_, value]) => value !== undefined && value !== "")
     );
 
-    console.log('Spremno za Formspree (Bez praznih polja):', cleanDataForFormspree);
 
-    // 4. SLANJE NA FORMSPREE
-    fetch('https://formspree.io/f/xkoylwkk', {
+    fetch('https://formspree.io/f/mjgldqnp', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
