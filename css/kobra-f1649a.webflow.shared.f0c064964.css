@@ -2063,6 +2063,10 @@ textarea.w-input, textarea.w-select {
   display: grid;
 }
 
+.visible{
+  visibility: visible;
+}
+
 :root {
   --_colors---dark-secondary: #161616;
   --_sizes---body: 16px;
@@ -3173,6 +3177,11 @@ textarea.w-input, textarea.w-select {
   position: fixed;
   inset: 0;
   padding: 0 15px;
+  pointer-events: none;
+}
+
+.quiz-card-content{
+  pointer-events: all;
 }
 
 .modal-background {
@@ -3388,6 +3397,7 @@ textarea.w-input, textarea.w-select {
 
 .submit-button {
   display: none;
+  cursor: pointer;
 }
 
 .radio-button {
