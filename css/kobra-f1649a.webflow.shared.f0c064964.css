@@ -1423,11 +1423,7 @@ textarea.w-input, textarea.w-select {
   outline: 0;
 }
 
-@media screen and (max-width: 767px) {
-  .w-nav-brand {
-    padding-left: 10px;
-  }
-}
+
 
 .w-lightbox-backdrop {
   cursor: auto;
@@ -1965,10 +1961,6 @@ textarea.w-input, textarea.w-select {
 
   .w-nav[data-collapse="small"] .w-nav-button {
     display: block;
-  }
-
-  .w-nav-brand {
-    padding-left: 10px;
   }
 }
 
