@@ -15,11 +15,21 @@ const nextButtons = modal ? modal.querySelectorAll('.next-button') : [];
 const backButtons = modal ? modal.querySelectorAll('.back-button') : [];
 
 const submitButton = document.querySelector('#submit_button');
+const requestCaseStudiesButton = modal ? modal.querySelector('#request_case_studies_button') : null;
+const requestEmailInput = modal ? modal.querySelector('#request-email') : null;
+const requestEmailStep = modal ? modal.querySelector('.form-step-simple') : null;
 const notification = document.querySelector('#submission-message');
 let notificationTimeout = null;
 
 const formSteps = [document.querySelector('.form-step1'), document.querySelector('.form-step2'), document.querySelector('.form-step3'), document.querySelector('.form-step4'), document.querySelector('.form-step5'), document.querySelector('.form-step6')];
 let currentStep = 0;
+
+const activateStep = step => {
+    if (!modal || !step) return;
+    const allSteps = modal.querySelectorAll('.quiz-card, .quiz-card-content');
+    allSteps.forEach(el => el.classList.remove('active'));
+    step.classList.add('active');
+};
 
 const showMessage = (message, type = 'success') => {
     if (!notification) {
@@ -29,12 +39,14 @@ const showMessage = (message, type = 'success') => {
 
     clearTimeout(notificationTimeout);
     notification.textContent = message;
-    notification.classList.remove('success', 'error');
+    notification.classList.remove('success', 'error', 'info');
     notification.classList.add(type, 'visible');
 
-    notificationTimeout = setTimeout(() => {
-        notification.classList.remove('visible');
-    }, 4500);
+    if (type !== 'info') {
+        notificationTimeout = setTimeout(() => {
+            notification.classList.remove('visible');
+        }, 4500);
+    }
 };
 
 const hideMessage = () => {
@@ -98,9 +110,16 @@ nextButtons.forEach(button => {
 backButtons.forEach(button => {
     button.addEventListener('click', e => {
         e.preventDefault();
-        formSteps[currentStep].classList.remove('active');
-        formSteps[currentStep - 1].classList.add('active');
-        currentStep--;
+        if (currentStep === -1) {
+            activateStep(formSteps[0]);
+            currentStep = 0;
+            return;
+        }
+        if (currentStep > 0) {
+            formSteps[currentStep].classList.remove('active');
+            formSteps[currentStep - 1].classList.add('active');
+            currentStep--;
+        }
     });
 });
 
@@ -109,9 +128,67 @@ buttonOpenModal.forEach(button => {
     button.addEventListener('click', e => {
         e.preventDefault();
         openModal();
+        const target = button.dataset.modalTarget;
+        if (target === 'simple' && requestEmailStep) {
+            activateStep(requestEmailStep);
+            currentStep = -1;
+        } else {
+            activateStep(formSteps[0]);
+            currentStep = 0;
+        }
     });
 });
 
+if (requestCaseStudiesButton) {
+    requestCaseStudiesButton.addEventListener('click', e => {
+        e.preventDefault();
+        const email = requestEmailInput ? requestEmailInput.value.trim() : '';
+
+        if (!validateEmail(email)) {
+            showMessage('Please enter a valid email address.', 'error');
+            if (requestEmailInput) requestEmailInput.focus();
+            return;
+        }
+
+        const form = document.querySelector('#email-form');
+        if (!form) {
+            closeModal();
+            return;
+        }
+
+        closeModal();
+
+        const rawData = {
+            email: email,
+            requestType: 'Full Case Studies'
+        };
+
+        const cleanDataForFormspree = Object.fromEntries(
+            Object.entries(rawData).filter(([_, value]) => value !== undefined && value !== "")
+        );
+
+        showMessage('Submitting your request...', 'info');
+
+        fetch('https://formspree.io/f/mnjrqyaq', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cleanDataForFormspree)
+        })
+            .then(response => {
+                if (response.ok) {
+                    showMessage('Thank you! Your request has been sent successfully.', 'success');
+                } else {
+                    showMessage('Sorry, we could not submit your request. Please try again later.', 'error');
+                }
+            })
+            .catch(() => {
+                showMessage('A network error occurred while sending your request. Please check your connection and try again.', 'error');
+            });
+    });
+}
 
 submitButton.addEventListener('click', e => {
     e.preventDefault();
@@ -149,6 +226,7 @@ submitButton.addEventListener('click', e => {
         Object.entries(rawData).filter(([_, value]) => value !== undefined && value !== "")
     );
 
+    showMessage('Submitting your quiz...', 'info');
 
     fetch('https://formspree.io/f/mjgldqnp', {
         method: 'POST',

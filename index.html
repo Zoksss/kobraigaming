@@ -33,7 +33,7 @@
             top: 90px;
             left: 50%;
             transform: translateX(-50%) translateY(-10px);
-            z-index: 99999;
+            z-index: 9999999999;
             max-width: 92%;
             min-width: 240px;
             padding: 20px 20px;
@@ -59,6 +59,10 @@
 
         .submission-message.error {
             background: #f04b4b;
+        }
+
+        .submission-message.info {
+            background: #757575;
         }
     </style>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -467,7 +471,7 @@
                                 </div>
                             </div><a data-wf--button-cta--variant="base"
                                 data-w-id="c3ce6ac0-cc41-4492-e193-656d64efe226" href="#"
-                                class="button-cta w-inline-block">
+                                class="button-cta w-inline-block button-open-modal" data-modal-target="simple">
                                 <p class="link-text">Request Full Case Studies</p>
                                 <div class="arrow-wrapper"><img loading="lazy" src="images/arrow.svg" alt=""
                                         class="image-2" /><img loading="lazy" src="images/arrow.svg" alt=""
@@ -808,6 +812,27 @@
                         <p class="link-text-back">Back</p>
                     </a></div><a href="#" class="close-button w-inline-block"><img src="images/x.svg" loading="lazy"
                         alt="x" class="close-button" /></a>
+            </div>
+            <div class="quiz-card-content form-step-simple">
+                <div class="quiz-card-wrapper">
+                    <div class="quiz-title-wrapper">
+                        <h3 class="quiz-card-title">Request Full Case Studies</h3>
+                        <p class="quiz-card-desc">Enter your email and we will send the full case studies straight to your inbox.</p>
+                    </div>
+                </div>
+                <div class="cta-quiz-form w-form">
+                    <div class="form-input-wrapper">
+                        <label for="request-email" class="form-label">Email</label>
+                        <input type="email" class="form-input" id="request-email" name="Email" required placeholder="you@example.com">
+                    </div>
+                </div>
+                <div class="quiz-button-wrapper">
+                    <button id="request_case_studies_button" type="button" class="button-cta-quiz w-inline-block">
+                        <p class="link-text">Request</p>
+                        <div class="arrow-wrapper"><img src="images/arrow.svg" loading="lazy" alt="" class="image-2" /><img src="images/arrow.svg" loading="lazy" alt="" class="image-2" /></div>
+                    </button>
+                </div>
+                <a href="#" class="close-button w-inline-block"><img src="images/x.svg" loading="lazy" alt="x" class="close-button" /></a>
             </div>
         </form>
     </div>
